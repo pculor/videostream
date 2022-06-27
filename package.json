@@ -1,0 +1,66 @@
+{
+  "name": "video-stream-checker",
+  "version": "1.0.0",
+  "description": "backend service to check video stream per user and limit streams to 3 videos",
+  "main": "index.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --coverage --runInBand --forceExit && npm run clean",
+    "start": "cross-env NODE_ENV=production node app.js",
+    "dev": "cross-env NODE_ENV=development nodemon --exec node app.js",
+    "lint": "eslint --fix server/",
+    "format": "npx prettier --write ."
+  },
+  "author": "Pascal Ulor",
+  "license": "ISC",
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "helmet": "^5.1.0",
+    "morgan": "^1.10.0",
+    "request-response-handler": "^1.0.1",
+    "supertest": "^6.2.3",
+    "winston": "^3.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.18",
+    "prettier": "^2.7.1"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      ".git",
+      "node_modules",
+      "dist"
+    ],
+    "exec": "npm run server",
+    "watch": [
+      "server/*"
+    ],
+    "ext": "js, json, ts"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/*.test.js",
+      "!**/coverage/**",
+      "!**/serviceWorker.js",
+      "!**/index.js"
+    ],
+    "projects": [
+      {
+        "displayName": "backend",
+        "testEnvironment": "node",
+        "testMatch": [
+          "<rootDir>/server/**/*.test.js"
+        ]
+      }
+    ]
+  }
+}
