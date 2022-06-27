@@ -78,6 +78,9 @@ has not elapsed.
 If the *count + incoming stream > 3* the system returns an *error*
 else the incoming stream is logged to the service database
 
+## TODO
+Service should update streams for which the *duration* has elapsed to *INACTIVE* and delete the record afterwards
+
 ## Built With
 
 * [Node.js](https://nodejs.org/) - Javascript runtime
