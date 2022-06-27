@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:alpine
+    container_name: app_db
+    restart: on-failure
+    environment:
+      - POSTGRES_USER=postgres  
+      - POSTGRES_PASSWORD=pccodes
+      - POSTGRES_DB=videolog
+    ports:
+      - '5436:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - videostream
+  server:
+    container_name: app_server
+    restart: on-failure
+    environment:
+      # - NODE_ENV=development
+      - SECRET_KEY=pascal
+      - DATABASE_URL=postgres://postgres:pccodes@postgres:5432/videolog?charset=UTF8
+    build:
+      context: ../
+      dockerfile: ./.docker/Dockerfile
+    ports:
+      # - Host-Port:Contanier-Port
+      - '4000:4000'
+    depends_on:
+      - postgres
+    volumes:
+      - server:/app/
+    hostname: app_server
+    networks:
+      - videostream
+
+volumes:
+  server:
+  postgres:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  videostream:
+    driver: bridge
