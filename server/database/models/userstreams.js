@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     videoId: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     status: {
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'ACTIVE',
     },
     duration: {
-      type: DataTypes.STRING,
+      type: DataTypes.DOUBLE,
       allowNull: false,
     },
   }, {

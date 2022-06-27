@@ -12,13 +12,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       videoId: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       status: {
         type: Sequelize.STRING
       },
       duration: {
-        type: Sequelize.STRING
+        type: Sequelize.DOUBLE
       },
       createdAt: {
         allowNull: false,

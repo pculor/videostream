@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const { success, errorHandler, OK } = require('request-response-handler');
 const morganMiddleware = require('../config/morgan.config');
 const logger = require('../config/winston.config');
+const router = require('../routes');
 
 
 const app = express();
@@ -31,6 +32,7 @@ app.use((err, req, res, next) => {
   next();
 });
 
+app.use('/api/v1', router);
 
 app.get('/', (req, res) => {
   success(res, OK, 'Welcome to API root', {

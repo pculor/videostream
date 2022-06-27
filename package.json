@@ -4,21 +4,27 @@
   "description": "backend service to check video stream per user and limit streams to 3 videos",
   "main": "index.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --coverage --runInBand --forceExit && npm run clean",
+    "clean": "rimraf test.sqlite",
+    "test": "cross-env NODE_ENV=test npm run dbreset && jest --detectOpenHandles --coverage --runInBand --forceExit && npm run clean",
     "start": "cross-env NODE_ENV=production node app.js",
+    "prestart": "cross-env NODE_ENV=production npm run migrate",
     "dev": "cross-env NODE_ENV=development nodemon --exec node app.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "dbreset": "npx sequelize-cli db:migrate:undo:all && npm run migrate",
     "lint": "eslint --fix server/",
     "format": "npx prettier --write ."
   },
   "author": "Pascal Ulor",
   "license": "ISC",
   "dependencies": {
+    "@joi/date": "^2.1.0",
     "app-root-path": "^3.0.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "helmet": "^5.1.0",
+    "joi": "^17.6.0",
     "morgan": "^1.10.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
@@ -34,7 +40,8 @@
     "eslint": "^8.18.0",
     "jest": "^28.1.1",
     "nodemon": "^2.0.18",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2"
   },
   "nodemonConfig": {
     "ignore": [
