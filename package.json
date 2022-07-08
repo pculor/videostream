@@ -8,7 +8,7 @@
     "test": "cross-env NODE_ENV=test npm run dbreset && jest --detectOpenHandles --coverage --runInBand --forceExit && npm run clean",
     "start": "cross-env NODE_ENV=production node app.js",
     "prestart": "cross-env NODE_ENV=production npm run migrate",
-    "dev": "cross-env NODE_ENV=development nodemon --exec node app.js",
+    "dev": "cross-env NODE_ENV=development npm run migrate && nodemon --exec node app.js",
     "migrate": "npx sequelize-cli db:migrate",
     "dbreset": "npx sequelize-cli db:migrate:undo:all && npm run migrate",
     "lint": "eslint --fix server/",

@@ -16,6 +16,16 @@ This command installs all the necessary dependencies
 ### Setup
 Create a `.env` using the `.env.example` file as a guide, using your local environment variables
 
+You can use the *postgres* in your local machine or You spin postgres with *docker* as follows:
+
+```
+chmod +x ./startdb.sh
+```
+```
+./startdb.sh
+```
+
+Run the app in *dev* environment
 ```
 npm run dev
 ```
@@ -48,7 +58,53 @@ Adds an entry into the database
 \
 **/api/v1/stream** - adds a stream to the database. The stream information is sent within the *Body* of the request and it returns an of object that contains the *HTTP status code* and *result*.
 
+Sample response on *request*
+```
+{
+    "userId": 1,
+    "videoId": 3,
+    "duration": "{{timeStamp}}"
+}
+```
 
+Sample response on *success*
+```
+{
+    "success": true,
+    "statusCode": 201,
+    "message": "video Started Successfully",
+    "body": {
+        "status": "ACTIVE",
+        "id": 2,
+        "userId": 1,
+        "videoId": 3,
+        "duration": 1657272237582,
+        "updatedAt": "2022-07-08T09:23:57.715Z",
+        "createdAt": "2022-07-08T09:23:57.715Z"
+    }
+}
+```
+Each input field is validated and would return a *field specific* error message if empty or of wrong datatype.
+Sample response on *error1*
+```
+{
+    "success": false,
+    "errors": {
+        "message": "userId must be a number",
+        "status": 400
+    }
+}
+```
+Sample response on *error2*
+```
+{
+    "success": false,
+    "errors": {
+        "message": "videoId is required",
+        "status": 400
+    }
+}
+```
 ## Integration tests
 
 To test the endpoints, create a test database and run the following:

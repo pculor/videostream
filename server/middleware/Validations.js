@@ -19,8 +19,8 @@ class Validations {
       ...req.body, ...req.query, ...req.params, ...req.headers,
     };
     const schema = Joi.object().keys({
-      userId: Joi.number(),
-      videoId: Joi.number(),
+      userId: Joi.number().required(),
+      videoId: Joi.number().required(),
       status: Joi.string().valid('ACTIVE', 'INACTIVE').optional().allow('', null).messages({
         'string.pattern.base': "status must be a string",
         'any.only': `status value must be one of the following ACTIVE, INACTIVE`,
